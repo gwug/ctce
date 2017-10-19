@@ -109,7 +109,7 @@ arms_keys = [str(x) for x in arms_keys]
 ivn_data = sorted(ivn.items(), key = lambda x:x[1], reverse=True)
 ivn_keys, ivn_vals = zip(*ivn_data)
 
-responsive=False
+responsive=True
 
 @app.route('/')
 def fcn():
@@ -154,8 +154,8 @@ def index():
 	header_text='Number of Incomplete Clinical Trials By Category'
 	
 	# make a bokeh figure
-	p = figure(x_range=mesh_cat_keys, plot_width=500, plot_height=455)
-	
+	#p = figure(x_range=mesh_cat_keys, plot_width=500, plot_height=455) # Good for half-computer screen
+	p = figure(x_range=mesh_cat_keys, plot_width=500, plot_height=550) # Good for half-computer screen
 	
 	color_key=mesh_cat_keys.index(input_category)
 	mesh_cat_colors[color_key]='#756bb1'
@@ -306,7 +306,7 @@ def index():
 	header_ivn='Number of Incomplete Clinical Trials By Intervention'
 	
 	# make a bokeh figure
-	p_ivn = figure(x_range=ivn_keys, plot_width=500, plot_height=500)
+	p_ivn = figure(x_range=ivn_keys, plot_width=500, plot_height=300)
 	
 	color_key_ivn=ivn_keys.index(input_ivn)
 	ivn_colors[color_key_ivn]='#756bb1'
