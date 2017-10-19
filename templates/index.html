@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Skeleton application demoing Heroku and Flask integration.">
+    <meta name="author" content="@gotoariel">
+    <!-- <link rel="icon" href="favicon.ico"> -->
+
+    <title>Clinical Trial Completion Estimator</title>
+    
+    <link rel="icon" href="https://getbootstrap.com/favicon.ico">
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="https://getbootstrap.com/docs/4.0/examples/navbars/navbar.css" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  	<link rel="stylesheet" href="//cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.css" type="text/css" />
+  	<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.7.min.css"
+    rel="stylesheet" type="text/css">
+    
+  	{{script_home|safe}}
+  	{{script|safe}}
+  	
+  </head>
+  <body>
+  	 <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Clinical Trial Completion Estimator</a>
+            
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://github.com/gwug/stocktick">Github</a>
+          </li>
+        </ul>    
+      </div>
+    </nav>
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-left">
+        
+        <label for="exampleInputEmail1">
+        Clinical Trial Completion Estimator is an online resource to calculate the probability that a clinical trial will be completed.
+        </label>
+
+	
+    
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-left">
+        
+        
+        <form id="ticker-text" method="post" action="index" class="form-inline my-2 my-md-0"> 
+            
+            <label for="exampleInputEmail1">Disease Category</label>
+            <select name="dcat">
+  				{% for disease in disease_cats %}		
+  				<!-- <option value="{{ disease }}"> {% if valh %}selected{%endif %}{{ disease }}</option> -->
+ 				 	<option value="{{ disease }}">{{ disease }}</option> 
+ 				{% endfor %}	    
+			</select>
+			
+            <label for="exampleInputEmail1">Phase</label>            
+            <select name="phase">
+  				{% for phase_level in phase_ct %}		
+  				<!-- <option value="{{ disease }}"> {% if valh %}selected{%endif %}{{ disease }}</option> -->
+ 					<option value="{{ phase_level }}">{{ phase_level }}</option> 
+	 			{% endfor %}	    
+			</select>
+            
+            <label for="exampleInputEmail1">Number of Arms</label>
+            <select name="arms"> 
+  				{% for num_arms in arms_ct %}		
+  				<!-- <option value="{{ disease }}"> {% if valh %}selected{%endif %}{{ disease }}</option> -->
+ 					<option value="{{ num_arms }}">{{ num_arms }}</option> 
+	 			{% endfor %}	    
+			</select>
+			
+			<label for="exampleInputEmail1">Intervention Type</label>
+            <select name="ivnt">
+  				{% for ivn_type in ivn_ct %}		
+  				<!-- <option value="{{ disease }}"> {% if valh %}selected{%endif %}{{ disease }}</option> -->
+ 					<option value="{{ ivn_type }}">{{ ivn_type }}</option> 
+	 			{% endfor %}	    
+			</select>
+			
+			<input class="btn btn-primary" type="submit" value="Submit">        
+    </form>
+    </div>
+    </div>
+    </div>  
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="//cdn.pydata.org/bokeh/release/bokeh-0.12.7.min.js"></script>
+    <script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.7.min.js"></script>
+  </body>
+</html>
