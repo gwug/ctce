@@ -153,7 +153,7 @@ def index():
 	header_text='Number of Incomplete Clinical Trials By Category'
 	
 	# make a bokeh figure
-	p = figure(x_range=mesh_cat_keys, plot_width=300, plot_height=200)
+	p = figure(x_range=mesh_cat_keys, plot_width=800, plot_height=500)
 	
 	
 	color_key=mesh_cat_keys.index(input_category)
