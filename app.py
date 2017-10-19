@@ -14,7 +14,6 @@ from math import pi
 app = Flask(__name__)
 
 # Load in some data
-# New Comment
 mesh_cat_term_trial = dict({
 		 'Cancers and Other Neoplasms' : 16380.0,
 		 'Symptoms and General Pathology' : 15438.0,
