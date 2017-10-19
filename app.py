@@ -109,6 +109,7 @@ arms_keys = [str(x) for x in arms_keys]
 ivn_data = sorted(ivn.items(), key = lambda x:x[1], reverse=True)
 ivn_keys, ivn_vals = zip(*ivn_data)
 
+responsive=False
 
 @app.route('/')
 def fcn():
@@ -361,10 +362,10 @@ def index():
 	callback_ivn.args["dnum"] = ivn_slider
 	
 	######## components ##############		
-	script, div = components(column(p,row(widgetbox(mesh_cat_slider)), responsive=True))
-	script_phase, div_phase = components(column(p_phase, row(widgetbox(phase_slider)), responsive=True))
-	script_arms, div_arms = components(column(p_arms, row(widgetbox(arms_slider)), responsive=True))
-	script_ivn, div_ivn = components(column(p_ivn, row(widgetbox(ivn_slider)), responsive=True))
+	script, div = components(column(p,row(widgetbox(mesh_cat_slider)), responsive=responsive))
+	script_phase, div_phase = components(column(p_phase, row(widgetbox(phase_slider)), responsive=responsive))
+	script_arms, div_arms = components(column(p_arms, row(widgetbox(arms_slider)), responsive=responsive))
+	script_ivn, div_ivn = components(column(p_ivn, row(widgetbox(ivn_slider)), responsive=responsive))
 	
 	return render_template('graph2.html', script=script, div=div, h=header_text,
 		script_phase=script_phase, div_phase=div_phase, hp=header_phase,
