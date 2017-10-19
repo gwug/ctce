@@ -154,7 +154,7 @@ def index():
 	header_text='Number of Incomplete Clinical Trials By Category'
 	
 	# make a bokeh figure
-	p = figure(x_range=mesh_cat_keys, plot_width=800, plot_height=500)
+	p = figure(x_range=mesh_cat_keys, plot_width=500, plot_height=455)
 	
 	
 	color_key=mesh_cat_keys.index(input_category)
@@ -256,7 +256,7 @@ def index():
 	header_arms='Number of Incomplete Clinical Trials By Number of Arms'
 	
 	# make a bokeh figure
-	p_arms = figure(x_range=arms_keys, plot_width=800, plot_height=500)
+	p_arms = figure(x_range=arms_keys, plot_width=500, plot_height=300)
 	
 	color_key_arms=arms_keys.index(input_arms)
 	arms_colors[color_key_arms]='#756bb1'
@@ -306,7 +306,7 @@ def index():
 	header_ivn='Number of Incomplete Clinical Trials By Intervention'
 	
 	# make a bokeh figure
-	p_ivn = figure(x_range=ivn_keys, plot_width=700, plot_height=500)
+	p_ivn = figure(x_range=ivn_keys, plot_width=500, plot_height=500)
 	
 	color_key_ivn=ivn_keys.index(input_ivn)
 	ivn_colors[color_key_ivn]='#756bb1'
