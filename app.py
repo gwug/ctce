@@ -130,8 +130,8 @@ def index():
 
 	######## Probability #########
 	
-	import pickle
-	tree_clf = pickle.load(open('tree_clf.dill', 'r'))
+	#import pickle
+	#tree_clf = pickle.load(open('tree_clf.dill', 'r'))
 	
 	#final_prob=tree_clf.predict_proba
 	
