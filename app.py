@@ -11,9 +11,86 @@ from bokeh.models import CustomJS, ColumnDataSource, Range1d, LabelSet, Label
 import numpy as np
 from math import pi
 
+import pickle
+
 app = Flask(__name__)
 
+
+
 # Load in some data
+le_cat = ['Cancers and Other Neoplasms',
+		 'Symptoms and General Pathology',
+		 'Immune System Diseases',
+		 'Urinary Tract, Sexual Organs, and Pregnancy Conditions',
+		 'Digestive System Diseases',
+		 'Skin and Connective Tissue Diseases',
+		 'Respiratory Tract (Lung and Bronchial) Diseases',
+		 'Nervous System Diseases',
+		 'Nutritional and Metabolic Diseases',
+		 'Blood and Lymph Conditions',
+		 'Heart and Blood Diseases',
+		 'Behaviors and Mental Disorders',
+		 'Viral Diseases',
+		 'Muscle, Bone, and Cartilage Diseases',
+		 'Bacterial and Fungal Diseases',
+		 'Wounds and Injuries',
+		 'Gland and Hormone Related Diseases',
+		 'Eye Diseases',
+		 'Diseases and Abnormalities at or Before Birth',
+		 'Substance Related Disorders',
+		 'Mouth and Tooth Diseases',
+		 'Parasitic Diseases',
+		 'Ear, Nose, and Throat Diseases',
+		 'Occupational Diseases']
+ 
+le_phase = ['Early Phase 1',
+	'Phase 1',
+	'Phase 1/Phase 2',
+	'Phase 2',
+	'Phase 2/Phase 3',
+	'Phase 3',
+	'Phase 4']
+
+arms_list = [ '-1',
+    '0.0',
+    '1.0',
+    '2.0',
+    '3.0',
+    '4.0',
+    '5.0',
+    '6.0',
+    '7.0',
+    '8.0',
+    '9.0',
+    '10.0',
+    '11.0',
+    '12.0',
+    '13.0',
+    '14.0',
+    '15.0',
+    '16.0',
+    '17.0',
+    '18.0',
+    '19.0',
+    '20.0',
+    '21.0',
+    '22.0',
+    '24.0',
+    '27.0',
+    '32.0']
+    
+le_ivn_type = ['Behavioral',
+				'Biological',
+				'Combination Product',
+				'Device',
+				'Diagnostic Test',
+				'Dietary Supplement',
+				'Drug',
+				'Genetic',
+				'Other',
+				'Procedure',
+				'Radiation']
+
 mesh_cat_term_trial = dict({
 		 'Cancers and Other Neoplasms' : 16380.0,
 		 'Symptoms and General Pathology' : 15438.0,
@@ -130,20 +207,106 @@ def index():
 
 	######## Probability #########
 	
+	
+	prob_key = '%s%s%s%s' %(le_cat.index(input_category), 
+							le_phase.index(input_phase),
+							arms_list.index(input_arms),
+							le_ivn_type.index(input_ivn))
+	
+	
+	prob_dict = pickle.load(open('prob_dict.p','rb'))
+	
 	#import pickle
 	#tree_clf = pickle.load(open('tree_clf.dill', 'r'))
 	
 	#final_prob=tree_clf.predict_proba
 	
-	probs_cat=list(['0.GG', '0.88', '0.55', '0.45', '5', '6', '7',
-					 '8', '9','10', '11', '12', '13', '14', '15',
-					 '16', '17', '18', '19', '20', '21', '22', '23', '24'])
-	probs_phase=list(['0.RR', '0.88', '0.55', '0.45', '5', '6', '7'])
-	probs_arms=list(['0.AA', '0.88', '0.55', '0.45', '5', '6', '7',
-					 '8', '9','10', '11', '12', '13', '14', '15',
-					 '16', '17', '18', '19', '20', '21', '22',
-					 '23', '24', '25', '26']) 
-	probs_list=['0.WW', '0.88', '0.55', '0.45', '5', '6', '7', '8', '9','10', '11'] 
+	cat_key = '%s%s%s' %(le_phase.index(input_phase),
+							arms_list.index(input_arms),
+							le_ivn_type.index(input_ivn))
+	probs_cat=list([str(format(prob_dict['%s%s' %('0',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('1',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('2',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('3',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('4',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('5',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('6',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('7',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('8',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('9',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('10',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('11',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('12',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('13',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('14',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('15',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('16',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('17',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('18',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('19',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('20',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('21',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('22',cat_key)], '.2f')),
+					str(format(prob_dict['%s%s' %('23',cat_key)], '.2f'))])
+
+	phase_key_one = '%s' %(le_cat.index(input_category))
+	phase_key_two = '%s%s' %(arms_list.index(input_arms),
+							le_ivn_type.index(input_ivn))
+	probs_phase=list([str(format(prob_dict['%s%s%s' %(phase_key_one,'0',phase_key_two)], '.2f')),
+					  str(format(prob_dict['%s%s%s' %(phase_key_one,'1',phase_key_two)], '.2f')),
+					  str(format(prob_dict['%s%s%s' %(phase_key_one,'2',phase_key_two)], '.2f')),
+					  str(format(prob_dict['%s%s%s' %(phase_key_one,'3',phase_key_two)], '.2f')),
+					  str(format(prob_dict['%s%s%s' %(phase_key_one,'4',phase_key_two)], '.2f')),
+					  str(format(prob_dict['%s%s%s' %(phase_key_one,'5',phase_key_two)], '.2f')),
+					  str(format(prob_dict['%s%s%s' %(phase_key_one,'6',phase_key_two)], '.2f'))])
+	
+	arms_key_one = '%s%s' %(le_cat.index(input_category), 
+							le_phase.index(input_phase))
+	arms_key_two = '%s'	%(le_ivn_type.index(input_ivn))		  
+	probs_arms=list([str(format(prob_dict['%s%s%s' %(arms_key_one,'0',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'1',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'2',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'3',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'4',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'5',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'6',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'7',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'8',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'9',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'10',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'11',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'12',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'13',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'14',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'15',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'16',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'17',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'18',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'19',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'20',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'21',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'22',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'23',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'24',arms_key_two)], '.2f')),
+					str(format(prob_dict['%s%s%s' %(arms_key_one,'25',arms_key_two)], '.2f'))])
+	
+	ivn_key = '%s%s%s' %(le_cat.index(input_category), 
+							le_phase.index(input_phase),
+							arms_list.index(input_arms))
+	probs_list=list([str(format(prob_dict['%s%s' %(ivn_key,'0')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'1')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'2')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'3')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'4')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'5')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'6')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'7')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'8')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'9')], '.2f')),
+			         str(format(prob_dict['%s%s' %(ivn_key,'10')], '.2f'))])
+	
+	
+	#	'0.WW', '0.88', '0.55', '0.45', '5', '6', '7', '8', '9','10', '11'] 
 
 	
 	
